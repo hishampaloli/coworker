@@ -3,7 +3,7 @@
 
 
   <div class="row">
-    <div class="col-6 offset-3">
+    <div class="col-6">
         <div class="card" style="width: 30rem;">
             <img src="<%= campground.image %>" style="height: 15rem;"  class="card-img-top" alt="...">
             <div class="card-body">
@@ -21,6 +21,33 @@
             </form>
             </div>
           </div>
+
+    </div>
+
+    <div class="col-6">
+      <h2>Leave a Review</h2>
+          <form action="/campgrounds/<%= campground._id %>/reviews " method="post" class="mb-3 validated-form" novalidate>
+            <div class="mb-3">
+              <label for="rating" class="form-label">Rating</label>
+              <input class="form-range" type="range" id="rating" name="review[rating]" min="1" max="5">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="body">Review</label>
+              <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+            </div>
+            <button class="btn btn-success">Submit</button>
+          </form>
+
+          <% for(let review of campground.reviews) { %> 
+            <div class="card mb-3">
+          <div class=" card-body">
+            <p>Rating: <%= review.rating %> </p>
+            <p>Review: <%= review.body %> </p>
+            <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+            <button class="btn btn-danger btn-sm">Delete</button></form>
+          </div>
+        </div>
+          <% } %> 
     </div>
   </div>
 
