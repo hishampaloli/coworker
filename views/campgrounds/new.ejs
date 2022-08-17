@@ -1,44 +1,23 @@
-<% layout('layouts/boilerplate') %> 
-<div class="row">
-    <h1 class="text-center">New Camp</h1>
-    <div class="col-6 offset-3">
-        <form action="/campgrounds" method="post" novalidate class="validated-form">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>New Camp</h1>
 
-            <div class="mb-3">
-                <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="campground[title]" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label" for="location">location</label>
-                <input class="form-control" type="text" id="location" name="campground[location]" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label" for="image">Image url</label>
-                <input class="form-control" type="text" id="image" name="campground[image]" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label" for="price">Price</label>
-            <div class="input-group">
-                <span class="input-group-text" id="price-lable">$</span>
-                <input type="text" class="form-control" placeholder="0.00" name="campground[price] id="price" aria-label="price" required aria-describedby="price-lable">
-              </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
-                <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <button class="btn btn-success">Add Camps</button>
-            </div>
-            
-        </form>
-        <a href="/campgrounds">Back</a>
+    <form action="/campgrounds" method="post">
+        <div>
+        <input type="text" name="campground[title]" placeholder="title">
+        <input type="text" name="campground[location]" placeholder="location">
+        <button type="submit">Add</button>
     </div>
-</div>
-   
+    </form>
 
+    
+    <a href="/campgrounds">Back</a>
+</body>
+</html>
