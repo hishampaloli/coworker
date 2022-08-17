@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 
 app.get("/campgrounds", async (req, res) => {
   const campgrounds = await Campground.find({});
-  res.render("campgrounds/index", { campground: campgrounds });
+  res.render("campgrounds/index", { campgrounds: campgrounds });
 });
 
 app.get("/campgrounds/new", (req, res) => {
@@ -50,6 +50,11 @@ app.get("/campgrounds/:id/edit", async (req, res) => {
   const campground = await Campground.findById(req.params.id);
   res.render("campgrounds/edit", { campground });
 });
+
+app.get("/campgrounds/:id/delete", async(req, res) => {
+    const campground = await Campground.findByIdAndDelete(req.params.id);
+    res.redirect("/campgrounds");
+})
 
 app.put("/campgrounds/:id", async (req, res) => {
     const {id} = req.params;
