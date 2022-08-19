@@ -1,26 +1,20 @@
 {
-  "name": "campbooker",
+  "name": "YelpCamp",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hishampaloli/CampBooker.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hishampaloli/CampBooker/issues"
-  },
-  "homepage": "https://github.com/hishampaloli/CampBooker#readme",
   "dependencies": {
-    "ejs": "^3.1.8",
-    "ejs-mate": "^4.0.0",
-    "express": "^4.18.1",
+    "ejs": "^3.1.5",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.6.0",
     "method-override": "^3.0.0",
-    "mongoose": "^6.5.2"
+    "mongoose": "^5.10.4"
   }
 }
