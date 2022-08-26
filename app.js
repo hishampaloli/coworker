@@ -69,12 +69,12 @@ app.use((req, res, next) => {
 });
 
 
-app.use("/campgrounds", campgrounds);
-app.use("/campgrounds/:id/reviews", reviews);
+app.use("/workspace", campgrounds);
+app.use("/workspace/:id/reviews", reviews);
 app.use('/', usersRoutes);
 
 app.get("/", async (req, res) => {
-  res.redirect("/campgrounds");
+  res.render("homePage/homepage");
   // const user = new User({email: 'hisham@gmail.com', username: 'hisham'});
   // const newUser = await User.register(user, 'CHICKEN');
   // res.send(newUser);

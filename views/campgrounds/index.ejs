@@ -1,14 +1,13 @@
 <% layout('layouts/boilerplate')%>
 
-<h1>All Campgrounds</h1>
-<div>
-    <a href="/campgrounds/new">Add Campground</a>
-</div>
+<h1 class="mb-5" >All Spaces</h1>
+
+<div style="display: flex; flex-direction: column-reverse;">
 <% for (let campground of campgrounds){%>
-<div class="card" mb-3>
+<div class="card mb-3" >
     <div class="row">
         <div class="col-md-4">
-            <img class="img-fluid" alt="" src="<%=campground.image%>">
+            <img class="img-fluid" style="width: 300px; height: 300px;" alt="" src="<%=campground.image%>">
         </div>
         <div class="col-md-8">
             <div class="card-body">
@@ -17,9 +16,11 @@
                 <p class="card-text">
                     <small class="text-muted"><%= campground.location%></small>
                 </p>
-                <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View <%=campground.title%></a>
+                <a class="btn btn-primary" href="/workspace/<%=campground._id%>">View <%=campground.title%></a>
             </div>
         </div>
     </div>
 </div>
 <% }%>
+
+</div>

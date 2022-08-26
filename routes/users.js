@@ -1,50 +1,44 @@
-const express = require("express");
-const passport = require("passport");
+const express = require('express');
 const router = express.Router();
-const User = require("../models/user");
-const catchAsync = require("../utils/catchAsync");
+const passport = require('passport');
+const User = require('../models/user');
+const catchAsync = require('../utils/catchAsync');
+const {logg} = require("../middlewares/middleware");
 
-router.get("/register", (req, res) => {
-  res.render("users/register");
-  // res.send("hi")
-});
+router.get('/register', logg, (req, res) => {
+    res.render('users/register')
+})
 
-router.post(
-  "/register",
-  catchAsync(async (req, res, next) => {
+router.post('/register', async(req, res) => {
     try{
-        const { email, username, password } = req.body;
-        const user = new User({ email, username });
+        const {email, username, password} = req.body;
+        const user = new User({email, username});
         const registeredUser = await User.register(user, password);
-        req.login(registeredUser, err => {
+        req.logIn(registeredUser, err => {
             if (err) {
-                return next(err);
-                        }
+                return next(err)
+            }
         })
-        req.flash("success", "Welcome to Yelp Camp!");
-        res.redirect("/campgrounds");
-    } catch(e){
-        req.flash('error', e.message);
-        res.redirect('/register')
+        req.flash("success", "welcome to camps");
+        res.redirect('/workspace')
+    }catch(e){
+        req.flash("error", e.message);
+        res.redirect('/workspace');
     }
-    
-  })
-);
-
-
-router.get('/login', (req, res) => {
-    res.render('users/login')
-})
-router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res) => {
-    req.flash("success","Welcome back");
-    const redirectUrl = req.session.returnTo || '/campgrounds'
-    res.redirect(redirectUrl);
 })
 
+router.get("/login",logg, (req, res) => {
+    res.render("users/login");
+})
+
+router.post("/login",passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res) => {
+    req.flash("success", "welcome");
+    res.redirect('/workspace');
+})
 
 router.get('/logout', (req, res) => {
     req.logout(() => {});
-    req.flash("Succes", "Goodbye")
-    res.redirect('/campgrounds');
+    req.flash("Success", "Goodbye");
+    res.redirect("/workspace");
 })
 module.exports = router;
