@@ -5,7 +5,7 @@ const Campground = require("../models/campground");
 
 const validateLoggin = (req, res, next) => {
   if (!req.isAuthenticated()) {
-    req.flash("error", "you must be signed In");
+    req.flash("error", "you must be signedIn to Add a Workspace !");
     return res.redirect("/login");
   }
 
@@ -23,20 +23,19 @@ const logg = (req, res, next) => {
 const validateCampground = (req, res, next) => {
   const { error } = campgroundSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
+    const msg = error.details[0].message;
+  req.flash("error", msg);
     throw new ExpressError(msg, 400);
-
-    return req.flash("error", "you must be signed In");
   } else {
     next();
   }
-};
+}; 
 
 const isAuthor = async (req, res, next) => {
   const { id } = req.params;
   const campground = await Campground.findById(id);
   if (!campground.author.equals(req.user._id)) {
-    req.flash("error", "You cannot do that");
+    req.flash("error", "Only the creater of this Space can access this page !");
     return res.redirect(`/campgrounds/${campground._id}`);
   }
   next();

@@ -19,7 +19,7 @@ router.post('/register', async(req, res) => {
                 return next(err)
             }
         })
-        req.flash("success", "welcome to camps");
+        req.flash("success", "Welcome to Coworker.in");
         res.redirect('/workspace')
     }catch(e){
         req.flash("error", e.message);
@@ -32,13 +32,13 @@ router.get("/login",logg, (req, res) => {
 })
 
 router.post("/login",passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res) => {
-    req.flash("success", "welcome");
+    req.flash("success", "Welcome back to Coworker.in");
     res.redirect('/workspace');
 })
 
 router.get('/logout', (req, res) => {
     req.logout(() => {});
-    req.flash("Success", "Goodbye");
+    req.flash("Success", "Thank you for visiting CoWorker.in");
     res.redirect("/workspace");
 })
 module.exports = router;

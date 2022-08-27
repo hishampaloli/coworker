@@ -30,7 +30,7 @@ router.post(
     const campground = new Campground(req.body.campground);
     campground.author = req.user._id;
     await campground.save();
-    req.flash("success", "Successfully made a new campground!");
+    req.flash("success", "Successfully made a new WorkSpace!");
     res.redirect(`/workspace/${campground._id}`);
   })
 );
@@ -53,7 +53,7 @@ router.get(
     if (campground) {
       res.render("campgrounds/show", { campground });
     } else {
-      req.flash("error", "Cannot find that campground!");
+      req.flash("error", "Cannot find that WorkSpace!");
       return res.redirect("/workspace");
     }
   })
@@ -66,7 +66,7 @@ router.get(
   catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     if (!campground) {
-      req.flash("error", "Cannot find that campground!");
+      req.flash("error", "Cannot find that WorkSpace!");
       return res.redirect("/workspace");
     }
     res.render("campgrounds/edit", { campground });
@@ -79,8 +79,10 @@ router.put(
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
+    console.log(req.body.campground);
+    const campground = await Campground.findByIdAndUpdate(id,req.body.campground);
 
-    req.flash("success", "Successfully updated campground!");
+    req.flash("success", "Successfully updated the WorkSpace!");
     res.redirect(`/workspace/${campground._id}`);
   })
 );
@@ -90,7 +92,7 @@ router.delete(
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
-    req.flash("success", "Successfully deleted campground");
+    req.flash("success", "Successfully deleted the WorkSpace");
     res.redirect("/workspace");
   })
 );
