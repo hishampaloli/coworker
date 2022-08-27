@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const { campgroundSchema } = require("../schemas.js");
-const { validateLoggin, validateCampground, isAuthor } = require("../middlewares/middleware");
+const { validateLoggin, validateCampground, isAuthor} = require("../middlewares/middleware");
 
 const ExpressError = require("../utils/ExpressError");
 const Campground = require("../models/campground");
@@ -38,7 +38,8 @@ router.post(
 router.get(
   "/:id",
   catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id)
+    if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+      const campground = await Campground.findById(req.params.id)
       .populate("reviews").populate({
         path: 'reviews',
         populate: [
@@ -49,13 +50,15 @@ router.get(
         ],
       })
       .populate("author")
-    console.log(campground);
-    if (campground) {
-      res.render("campgrounds/show", { campground });
-    } else {
+      if (campground) {
+        res.render("campgrounds/show", { campground });
+      }
+    }else {
       req.flash("error", "Cannot find that WorkSpace!");
       return res.redirect("/workspace");
     }
+    
+  
   })
 );
 

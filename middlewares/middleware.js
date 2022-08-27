@@ -24,20 +24,30 @@ const validateCampground = (req, res, next) => {
   const { error } = campgroundSchema.validate(req.body);
   if (error) {
     const msg = error.details[0].message;
-  req.flash("error", msg);
+    req.flash("error", msg);
     throw new ExpressError(msg, 400);
   } else {
     next();
+    x;
   }
-}; 
+};
 
 const isAuthor = async (req, res, next) => {
   const { id } = req.params;
   const campground = await Campground.findById(id);
+
+  try {
+    console.log(req.user._id);
+  } catch {
+    req.flash("error", "Only the creater of this Space can access this page !");
+    return res.redirect(`/workspace/${campground._id}`);
+  }
+
   if (!campground.author.equals(req.user._id)) {
     req.flash("error", "Only the creater of this Space can access this page !");
-    return res.redirect(`/campgrounds/${campground._id}`);
+    return res.redirect(`/workspace/${campground._id}`);
   }
+
   next();
 };
 
@@ -51,4 +61,10 @@ const validateReview = (req, res, next) => {
   }
 };
 
-module.exports = { validateLoggin, logg, validateCampground, isAuthor, validateReview };
+module.exports = {
+  validateLoggin,
+  logg,
+  validateCampground,
+  isAuthor,
+  validateReview,
+};
